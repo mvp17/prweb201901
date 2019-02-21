@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# vim encoding = utf-8
+# -*- coding: utf-8 -*-
+# vim file encoding = utf-8
 
 from urllib.request import urlopen
 import bs4
