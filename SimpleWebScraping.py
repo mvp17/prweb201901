@@ -21,9 +21,9 @@ class WebScraping(object):
     @staticmethod
     def scraping_process(html):
         tree = bs4.BeautifulSoup(html, "lxml")
-        text = tree.find_all("div", "scroll_box")
+        products = tree.find_all("ul", "goodlist_1")
         elements = []
-        for element in text:
+        for element in products:
             offer = element.find("span", "price")
             regular = element.find("span", "price_old")
             title = element.find("span", "title")
