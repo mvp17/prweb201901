@@ -19,21 +19,38 @@ class WebScraping(object):
         return data
 
     @staticmethod
-    def scraping_process(html):
+    def getTitles(tree):
+        treeTitles = tree.find_all("span", "title")
+        titles = []
+
+        for title in treeTitles:
+            titles.append(title.find("a").text)
+
+        return titles
+
+    @staticmethod
+    def getPrices(tree):
+        treePrices = tree.find_all("div", "priceitem")
+        prices = []
+
+        for price in treePrices:
+            prices.append((price.find("span", "price").text, price.find("span", "price_old").text))
+
+        return prices
+
+    @staticmethod
+    def printData(titles, prices):
+        for i in range(len(titles)):
+            print("Title: ", titles[i], " ", "Current Price: ", prices[i][0], " ", "Old Price: ", prices[i][1])
+            print("\n")
+
+    def scraping_process(self, html):
         tree = bs4.BeautifulSoup(html, "lxml")
-        products = tree.find_all("ul", "goodlist_1")
-        elements = []
-        for element in products:
-            offer = element.find("span", "price")
-            regular = element.find("span", "price_old")
-            title = element.find("span", "title")
-            elements.append((title.text, (offer.text, regular.text)))
-        return elements
+        self.printData(self.getTitles(tree), self.getPrices(tree))
 
     def run(self):
         html = self.get_html()
-        data = self.scraping_process(html)
-        print(data)
+        self.scraping_process(html)
 
 
 if __name__ == "__main__":
