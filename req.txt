@@ -1,0 +1,7 @@
+beautifulsoup4==4.7.1
+bs4==0.0.1
+Django==2.1.7
+lxml==4.3.1
+pytz==2018.9
+soupsieve==1.8
+urlopen==1.0.0
