@@ -31,7 +31,10 @@ class WebScraping(object):
         treePrices = tree.find_all("div", "priceitem")
         prices = []
         for price in treePrices:
-            prices.append((price.find("span", "price").text, price.find("span", "price_old").text))
+            if price.find("span", "price_old") is None:
+                prices.append((price.find("span", "price").text, 0))
+            else:
+                prices.append((price.find("span", "price").text, price.find("span", "price_old").text))
         return prices
 
     @staticmethod
